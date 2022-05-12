@@ -1,7 +1,4 @@
-export type UserRoleType = {
-    roleId: string;
-    roleName: string;
-}
+export type UserRoleType = "superadmin" | "student";
 
 export type UserInfoType = {
     name: string;
@@ -20,5 +17,5 @@ export type LoginUserType = Omit<UserInfoType, "name" | "surname" | "avatar"> & 
 
 export type AuthInfoType = {
     accessToken: string;
-    roles: UserRoleType
+    roles: UserRoleType[]
 }

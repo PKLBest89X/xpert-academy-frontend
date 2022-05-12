@@ -15,18 +15,13 @@ const breakpointScreen = {
         min: 1024,
         max: 1279,
     },
-    xl: {
-        min: 1280,
-        // max: 1535
-    },
 };
 
-const { xs, sm, md, lg, xl } = breakpointScreen;
+const { sm, md, lg } = breakpointScreen;
 
 export const screenBreakpoints = {
-    xs: `(min-width: ${xs.min}px) and (max-width: ${xs.max}px)`,
-    sm: `(min-width: ${sm.min}px) and (max-width: ${sm.max}px)`,
+    // xs: `(min-width: ${xs.min}px) and (max-width: ${xs.max}px)`,
+    sm: `(max-width: ${sm.max}px)`,
     md: `(min-width: ${md.min}px) and (max-width: ${md.max}px)`,
-    lg: `(min-width: ${lg.min}px) and (max-width: ${lg.max}px)`,
-    xl: `(min-width: ${xl.min}px)`,
+    lg: `(min-width: ${lg.min}px)`,
 };

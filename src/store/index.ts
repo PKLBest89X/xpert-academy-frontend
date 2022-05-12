@@ -5,7 +5,6 @@ export const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({ thunk: false }),
-    devTools: true,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

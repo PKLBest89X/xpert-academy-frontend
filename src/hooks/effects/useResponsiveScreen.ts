@@ -6,9 +6,9 @@ import {
     onSmUpOpen,
     onSmUpClose,
     onSmDownClose,
-} from "slices/features/screenSlice";
+} from "slices/features/toggleSlice";
 
-export const useResponsiveScreen = (): void => {
+export const useResponsiveScreen = () => {
     const dispatch = useAppDispatch();
     const { matches: sm } = useMediaQuery(screenBreakpoints.sm);
     const { matches: md } = useMediaQuery(screenBreakpoints.md);
@@ -19,4 +19,5 @@ export const useResponsiveScreen = (): void => {
             dispatch(onSmDownClose());
         } else if (lg) dispatch(onSmUpOpen());
     }, [dispatch, sm, md, lg]);
+    return { sm, md, lg };
 };

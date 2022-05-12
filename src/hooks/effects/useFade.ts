@@ -10,7 +10,6 @@ export const useFade = () => {
 	// Update visibility when show changes
 	useEffect(() => {
 		if (show) setVisible(true);
-		console.log(show)
 	}, [show]);
 
 	// These props go on the fading DOM element

@@ -10,8 +10,8 @@ const initialState: InitialType = {
     smDown: false,
 };
 
-const screenSlice = createSlice({
-    name: "screen",
+const toggleSlice = createSlice({
+    name: "toggle",
     initialState,
     reducers: {
         onSmUpOpen: (state) => {
@@ -26,8 +26,18 @@ const screenSlice = createSlice({
         onSmDownClose: (state) => {
             state.smDown = false;
         },
+        handleToggle: (state) => {
+            state.smDown = !state.smDown;
+            state.smUp = !state.smUp;
+        },
     },
 });
 
-export const { onSmUpOpen, onSmUpClose, onSmDownOpen, onSmDownClose } = screenSlice.actions;
-export default screenSlice.reducer;
+export const {
+    onSmUpOpen,
+    onSmUpClose,
+    onSmDownOpen,
+    onSmDownClose,
+    handleToggle,
+} = toggleSlice.actions;
+export default toggleSlice.reducer;

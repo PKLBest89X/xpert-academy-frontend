@@ -13,7 +13,7 @@ const Modal: React.FC<ModalType> = ({ children }) => {
     const { popupStatus } = useAppSelector((state) => state.modal);
     const { modalClose } = useModalClose();
     const { visible, setVisible, setShow, animationEnd} = useFade();
-    useOverflow();
+    useOverflow({ action: popupStatus });
 
     const handleClickModal = (
         event: React.MouseEvent<HTMLDivElement, MouseEvent>

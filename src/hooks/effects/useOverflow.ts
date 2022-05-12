@@ -1,10 +1,14 @@
 import { useLayoutEffect } from "react";
 
-export const useOverflow = () => {
+type OverflowPropsType = {
+    action: boolean;
+};
+
+export const useOverflow = ({ action }: OverflowPropsType): void => {
     useLayoutEffect(() => {
-        document.body.style.overflowY = "hidden";
+        if (action) document.body.style.overflowY = "hidden";
         return () => {
             document.body.style.overflowY = "auto";
-        }
-    }, [])
-}
+        };
+    }, [action]);
+};

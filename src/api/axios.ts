@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:5000";
+const baseURL = "https://api.academyxpert.la/api/v1";
 
 export const axiosWithAuth = axios.create({
     baseURL,

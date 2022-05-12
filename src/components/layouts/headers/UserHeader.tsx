@@ -1,24 +1,31 @@
-import React from "react";
-import { useHeader } from "hooks/useHeader";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useHeader } from "hooks/effects/useHeader";
+import { Link, useLocation } from "react-router-dom";
 
 // <--------------- import icons ------------->
 import { BsDiamondHalf } from "react-icons/bs";
 import { FaUserCircle, FaShoppingCart } from "react-icons/fa";
+import { AiOutlineMenu } from "react-icons/ai";
 
-// <--------------- import routing data --------------->
-import { routingUserData } from "./data";
+// <---------------- import navigations ------------------>
+import UserNavigation from "../navigations/UserNavigation";
 
-// <--------------- import aos ---------------->
-import { useAos } from "hooks/effects/useAos";
+// <--------------- import hooks---------------->
+import { useAppDispatch } from "hooks/useRedux";
+import { handleToggle } from "slices/features/toggleSlice";
 
 const UserHeader: React.FC = () => {
-    useAos();
+    // <---------------- defined initial variables -------------->
     const { scrollActive } = useHeader();
+    const location = useLocation();
+    const dispatch = useAppDispatch();
+
+    // <----------------- functions ----------------------->
+    const onHandleToggle = () => dispatch(handleToggle());
     return (
         <header
-            className={`fixed top-0 left-0 transition duration-150 ease-in-out z-50 w-full ${
-                scrollActive
+            className={`fixed top-0 left-0 transition duration-200 ease-in-out z-50 w-full px-4 2xl:px-0 ${
+                scrollActive || location.pathname !== "/"
                     ? `shadow-md bg-[#ffffff]`
                     : `shadow-none transform translate-y-4`
             }`}
@@ -26,17 +33,26 @@ const UserHeader: React.FC = () => {
             <nav className="mx-auto max-w-7xl">
                 <div className="flex items-center justify-between h-[64px]">
                     <div className="flex items-center gap-4">
+                        <AiOutlineMenu
+                            className={`md:hidden text-lg cursor-pointer ${
+                                scrollActive || location.pathname !== "/"
+                                    ? `text-text-color`
+                                    : `text-body-color`
+                            }`}
+                            onClick={onHandleToggle}
+                        />
+
                         <Link
                             to="/"
-                            className={`flex items-center gap-4 font-bold ${
-                                scrollActive
+                            className={`flex items-center ml-4 md:mr-4 lg:mr-8 md:ml-0 gap-4 w-full font-bold ${
+                                scrollActive || location.pathname !== "/"
                                     ? `text-text-color`
                                     : `text-body-color`
                             }`}
                         >
                             <img
                                 src={`${
-                                    scrollActive
+                                    scrollActive || location.pathname !== "/"
                                         ? `/assets/images/academy_24px.png`
                                         : `/assets/images/white_logo_academy_24px.png`
                                 }`}
@@ -44,33 +60,31 @@ const UserHeader: React.FC = () => {
                             />
                             Xpert academy
                         </Link>
-                        <div className="flex gap-8 ml-8">
-                            {routingUserData.map((items, index) => (
-                                <Link
-                                    className={`relative inline-block gap-2 after:contents-[""] after:absolute after:w-full after:h-[2px] after:bottom-0 after:left-0 after:transform after:scale-0 after:origin-bottom-right after:transition after:duration-300 after:ease-in-out hover:after:transform hover:after:scale-100 hover:after:origin-bottom-left ${
-                                        scrollActive
-                                            ? `text-text-color hover:text-primary-color after:bg-primary-color`
-                                            : `text-body-color hover:text-body-color after:bg-body-color`
-                                    }`}
-                                    key={index}
-                                    to={items.path}
-                                >
-                                    {items.title}
-                                </Link>
-                            ))}
-                        </div>
+                        <UserNavigation
+                            scrollActive={scrollActive}
+                            pathname={location.pathname}
+                            toggle={onHandleToggle}
+                        />
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 md:gap-2">
                         <Link
                             to="/cart"
-                            className={`relative flex items-center gap-2 mr-4 text-md after:absolute after:bottom-0 after:left-0 after:content-[""] after:w-full after:h-[2px] after:transform after:scale-0 after:origin-bottom-right after:transition after:duration-300 after:ease-in-out hover:after:transform hover:after:scale-100 hover:after:origin-bottom-left ${
-                                scrollActive
+                            className={`flex items-center gap-2 mr-2 text-md transition duration-200 ease-in-out ${
+                                scrollActive || location.pathname !== "/"
                                     ? `text-text-color hover:text-primary-color after:bg-primary-color`
                                     : `text-body-color hover:text-body-color after:bg-body-color`
                             }`}
                         >
                             <FaShoppingCart />
-                            ກະຕ່າໃສ່ເຄື່ອງ
+                            <span
+                                className={`relative xs:hidden sm:block md:hidden lg:block after:absolute after:bottom-0 after:left-0 after:content-[""] after:w-full after:h-[2px] after:transform after:scale-0 after:origin-bottom-right after:transition after:duration-300 after:ease-in-out hover:after:transform hover:after:scale-100 hover:after:origin-bottom-left ${
+                                    scrollActive || location.pathname !== "/"
+                                        ? `text-text-color hover:text-primary-color after:bg-primary-color`
+                                        : `text-body-color hover:text-body-color after:bg-body-color`
+                                }`}
+                            >
+                                ກະຕ່າ
+                            </span>
                         </Link>
                         {/* {userData ? (
                             <UserLoggedIn
@@ -83,12 +97,15 @@ const UserHeader: React.FC = () => {
                             </Link>
                         )} */}
                         <Link
-                            to="auth/login"
-                            className={`flex items-center transition duration-300 ease-in-out text-md gap-2 py-2 px-6 rounded-md ${
-                                scrollActive
+                            to="auth"
+                            className={`flex items-center transition duration-300 ease-in-out text-md gap-2 py-2 px-6 rounded-md hover:shadow-sm ${
+                                scrollActive || location.pathname !== "/"
                                     ? `text-body-color bg-primary-color hover:bg-primary-color-act hover:shadow-lg hover:border-primary-color-act`
                                     : `bg-primary-color border-body-color text-body-color border-2 hover:bg-body-color hover:text-text-color`
                             }`}
+                            state={{
+                                from: location,
+                            }}
                         >
                             <FaUserCircle />
                             Login

@@ -1,20 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 // <------------ Import type ------------->
-import type { UserInfoType, AuthInfoType } from 'types/auth.type';
+import type { UserInfoType, AuthInfoType } from "types/auth.type";
 
-
-type InitialStateType = {
+type InitialStateType = AuthInfoType & {
     data: UserInfoType | null;
-    accessToken: Omit<AuthInfoType, "roles"> | string,
-    userRoles: Omit<AuthInfoType, "accessToken"> | null
-}
+};
 
 const initialState: InitialStateType = {
     data: null,
     accessToken: "",
-    userRoles: null
-}
+    roles: [],
+};
 
 const authSlice = createSlice({
     name: "auth",
@@ -22,12 +19,12 @@ const authSlice = createSlice({
     reducers: {
         onAuthUser: (state, { payload }: PayloadAction<AuthInfoType>) => {
             state.accessToken = payload.accessToken;
-            state.userRoles!.roles = payload.roles;
+            state.roles = state.roles.concat(payload.roles);
         },
         onGetUser: (state, { payload }: PayloadAction<UserInfoType>) => {
             state.data = payload;
-        }
-    }
+        },
+    },
 });
 
 export const { onAuthUser, onGetUser } = authSlice.actions;

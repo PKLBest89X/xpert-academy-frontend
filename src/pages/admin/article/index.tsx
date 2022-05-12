@@ -1,9 +1,9 @@
 import { FC } from 'react'
 
-const Artical: FC = () => {
+const AdminArticle: FC = () => {
   return (
     <div>index</div>
   )
 }
 
-export default Artical
+export default AdminArticle
