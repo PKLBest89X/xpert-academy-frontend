@@ -1,0 +1,23 @@
+.swiper {
+    display: block;
+    height: 100%;
+}
+
+.swiper-slide {
+    display: block;
+    width: 100%;
+    height: 100%
+}
+
+
+@media screen and (min-width: 1024px) {
+    .swiper-slide {
+        min-height: 18rem
+    }
+}
+
+@media screen and (min-width: 640px) and (max-width: 1024px) {
+    .swiper-slide {
+        min-height: 16rem
+    }
+}

@@ -71,16 +71,11 @@ module.exports = {
                         opacity: 0,
                     },
                 },
-                textTyping: {
-                    from: { width: 0 },
-                    to: { width: "100%" },
-                },
             },
             animation: {
-                fadeIn: "fadeIn 300ms ease-in-out",
-                fadeOut: "fadeOut 300ms ease-in-out",
+                fadeIn: "fadeIn 400ms ease-in-out",
+                fadeOut: "fadeOut 300ms ease",
                 spin: "spin 6s linear infinite",
-                textTyping: "textTyping 2s steps(30) infinite"
             },
         },
     },

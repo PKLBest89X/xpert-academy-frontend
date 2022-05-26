@@ -13,7 +13,7 @@ import { routingAdminData } from "./navigationData";
 import { useOverflow } from "hooks/effects/useOverflow";
 
 // <--------------- immport components ------------------------->
-import Divider from "components/Divider";
+import { Divider } from "components/Divider";
 
 type ScreenNowType = {
     screen: {
@@ -69,7 +69,7 @@ const AdminNavigation: FC<ScreenNowType> = React.memo(
                     <div
                         className={`absolute overflow-y-auto overflow-x-hidden top-16 left-0 py-4 px-2 w-full h-[calc(100vh-64px)] inner-scrollbar`}
                     >
-                        <div className="flex flex-col justify-center items-center">
+                        <div className={`transition-all duration-150 ease-in-out transform ${!smUp && (md || lg) ? `hidden` : `flex flex-col justify-center items-center`}`}>
                             {/* <Icon
                                 icon={"circle-user"}
                                 className={`rounded-full w-16 h-16 text-text-color`}

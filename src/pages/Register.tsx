@@ -12,7 +12,7 @@ import {
 } from "utils/input";
 
 // <------------------ import form components ------------->
-import { TextField } from "components/formComponents/TextField";
+import { TextFieldFormik } from "components/formComponents/TextFieldFormik";
 import { Button } from "components/formComponents/Button";
 
 // <----------------- import types ---------------------->
@@ -58,7 +58,7 @@ const Register: React.FC = () => {
                             type="text"
                             placeholder="name"
                             disabled={isSubmitting}
-                            component={TextField}
+                            component={TextFieldFormik}
                             value={values.userName}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -68,7 +68,7 @@ const Register: React.FC = () => {
                             name="userSurname"
                             placeholder="surname"
                             disabled={isSubmitting}
-                            component={TextField}
+                            component={TextFieldFormik}
                             value={values.userSurname}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -79,7 +79,7 @@ const Register: React.FC = () => {
                             placeholder="email"
                             rightIcon={"envelope"}
                             disabled={isSubmitting}
-                            component={TextField}
+                            component={TextFieldFormik}
                             value={values.email}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -90,7 +90,7 @@ const Register: React.FC = () => {
                             placeholder="password"
                             rightIcon={"lock"}
                             disabled={isSubmitting}
-                            component={TextField}
+                            component={TextFieldFormik}
                             value={values.userPassword}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -101,7 +101,7 @@ const Register: React.FC = () => {
                             placeholder="comfirm password"
                             rightIcon={"lock"}
                             disabled={isSubmitting}
-                            component={TextField}
+                            component={TextFieldFormik}
                             value={values.userRepassword}
                             onChange={handleChange}
                             onBlur={handleBlur}

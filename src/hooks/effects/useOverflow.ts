@@ -1,13 +1,15 @@
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 
 type OverflowPropsType = {
     action: boolean;
 };
 
 export const useOverflow = ({ action }: OverflowPropsType): void => {
-    useLayoutEffect(() => {
-        if (action) document.body.style.overflowY = "hidden";
+    useEffect(() => {
+        let isMounted = true
+        if (action && isMounted) document.body.style.overflowY = "hidden";
         return () => {
+            isMounted = false;
             document.body.style.overflowY = "auto";
         };
     }, [action]);

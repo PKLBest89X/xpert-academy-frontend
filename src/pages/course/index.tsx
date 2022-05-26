@@ -4,7 +4,7 @@ import { FC, useState } from "react";
 import { useTitle } from "hooks/effects/useTitle";
 
 // <--------------- import types -------------->
-import type { CourseDetailsType } from "types/course.type";
+import type { CourseDetailsDisplayType } from "types/course.type";
 
 // <--------------- import components -------------------->
 import { Button } from "components/formComponents/Button";

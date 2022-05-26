@@ -30,7 +30,7 @@ export const Button: FC<ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>> =
             >
                 {leftIcon && <Icon icon={leftIcon} />}
                 <span
-                    className={`text-body-color ${leftIcon && `ml-2`} ${
+                    className={`text-body-color st:hidden sm:inline ${leftIcon && `ml-2`} ${
                         rightIcon && `mr-2`
                     }`}
                 >

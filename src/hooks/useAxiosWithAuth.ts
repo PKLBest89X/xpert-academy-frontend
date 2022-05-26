@@ -12,8 +12,10 @@ type TokenType = {
 
 export const useAxiosWithAuth = (): AxiosInstance => {
     const refresh = useRefreshToken();
-    const { accessToken } = useAppSelector(state => state.auth);
+    const { accessToken } = useAppSelector((state) => state.auth);
     useEffect(() => {
+        let abortController = new AbortController();
+        const signal = abortController.signal;
         const requestInterceptor = axiosWithAuth.interceptors.request.use(
             (config) => {
                 if (!(config.headers as TokenType).authorization) {
@@ -30,7 +32,7 @@ export const useAxiosWithAuth = (): AxiosInstance => {
             async (error: AxiosError) => {
                 const preventRequest = error.config;
                 if (error.response?.status === 403) {
-                    const newAccessToken = await refresh();
+                    const newAccessToken = await refresh({ signal });
                     (
                         preventRequest.headers as TokenType
                     ).authorization = `Bearer ${newAccessToken}`;
@@ -40,6 +42,7 @@ export const useAxiosWithAuth = (): AxiosInstance => {
             }
         );
         return () => {
+            abortController.abort();
             axiosWithAuth.interceptors.request.eject(requestInterceptor);
             axiosWithAuth.interceptors.response.eject(responseInterceptor);
         };

@@ -1,32 +1,60 @@
 import { FC } from "react";
 
 // <-------------------- import table components -------------------->
-import { Table } from "components/Table";
+import { Table } from "components/table";
+
+// <-------------------- import components ------------------------->
+import FormsWithModal from "components/formComponents/forms/FormsWithModal";
+import Modal from "components/layouts/modals";
+import { Button } from "components/formComponents/Button";
+import { TextField } from "components/formComponents/TextField";
+import { Divider } from "components/Divider";
+
+// <------------------- import effects hooks ---------------------->
+import { useFade } from "hooks/effects/useFade";
 
 const AdminCourses: FC = () => {
-    return (
-        <div className="">
-            <div className="grid grid-rows-2 gap-1">
-                <Table />
+    // <------------------ defined initial variables --------------------->
 
-                <div className="">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Amet, nam repellendus sunt temporibus accusantium modi
-                    numquam sed, ratione suscipit fuga illum itaque quos ad eius
-                    et repellat laboriosam id nisi ut autem maxime adipisci hic?
-                    Corporis et enim vel tenetur, earum molestiae quod amet
-                    dignissimos esse, doloribus repudiandae officiis aspernatur,
-                    provident repellat laboriosam quis reiciendis fugit placeat
-                    temporibus voluptates. Culpa libero, atque asperiores
-                    commodi earum dicta esse. Ab animi eum maiores soluta nisi
-                    perspiciatis, voluptate error sed, obcaecati tempora
-                    excepturi iste quidem reiciendis ducimus. Ratione eum
-                    tempore nostrum deleniti corporis, saepe sed corrupti enim
-                    adipisci ex ducimus ullam voluptates praesentium, laboriosam
-                    nesciunt at minus! Quam recusandae enim nisi quae quos qui
-                    quaerat, adipisci consequatur excepturi repellat magni
+    // <------------------ defined hooks and fetching data ------------------>
+    const { visible, modalOpen } = useFade();
+
+    // <------------------ functions --------------------------->
+
+    return (
+        <div className="px-12 py-8 min-h-[calc(100vh-64px)]">
+            {visible && (
+                <Modal>
+                    <FormsWithModal />
+                </Modal>
+            )}
+            <section className="">
+                <div className="flex justify-between items-center w-full">
+                    <h1 className="text-text-color text-xl">Course</h1>
                 </div>
-            </div>
+            </section>
+            <Divider />
+            <section className="shadow-md mt-8">
+                <div className="p-4">
+                    <div className="flex justify-between items-center w-full">
+                        <TextField
+                            name="searchCourseAdmin"
+                            type="text"
+                            placeholder="ຄົ້ນຫາ..."
+                            leftIcon={`search`}
+                        />
+                        <Button
+                            text="ເພີ່ມ"
+                            handleClick={() => modalOpen("adCourse")}
+                            leftIcon={"plus"}
+                        />
+                    </div>
+                </div>
+
+                <div className="mt-2">
+                    <Table />
+                </div>
+            </section>
         </div>
     );
 };

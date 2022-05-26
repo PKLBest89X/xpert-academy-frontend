@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 // <----------------- import types --------------------->
-import type { CourseDetailsType } from "types/course.type";
+import type { CourseDetailsDisplayType } from "types/course.type";
 
 // <----------------- import icons --------------------->
 import { Icon } from "components/Icon";
@@ -14,7 +14,7 @@ import { Button } from "components/formComponents/Button";
 import NumberFormat from "react-number-format";
 
 type CourseCardPropsType = {
-    item: CourseDetailsType;
+    item: CourseDetailsDisplayType;
     rows: number;
 };
 
@@ -29,7 +29,7 @@ export const CourseCard: React.FC<CourseCardPropsType> = React.memo(
         const location = useLocation();
 
         // <------------- functions ----------->
-        const handleHover = (payload: CourseDetailsType, rows: number) => {
+        const handleHover = (payload: CourseDetailsDisplayType, rows: number) => {
             const { isActive, activeIndex } = activeToDo;
             if (activeIndex === rows && isActive) {
                 setActiveToDo((prev) => ({
@@ -49,8 +49,8 @@ export const CourseCard: React.FC<CourseCardPropsType> = React.memo(
         return (
             <article
                 className="grid grid-rows-1 bg-container-primary-color shadow-md rounded-md transition duration-200 ease-in-out hover:shadow-2xl hover:transform hover:scale-105"
-                onMouseEnter={() => handleHover(item, rows)}
-                onMouseLeave={() => handleHover(item, rows)}
+                onMouseOver={() => handleHover(item, rows)}
+                onMouseOut={() => handleHover(item, rows)}
                 key={item.courseId}
                 onClick={() =>
                     navigate(`/courses/${item.courseId}`, {
@@ -70,7 +70,7 @@ export const CourseCard: React.FC<CourseCardPropsType> = React.memo(
                     <img
                         className="block w-full h-full rounded-t-md object-cover object-center z-10"
                         src={item.coursePicture}
-                        alt={item.courseTitle}
+                        alt={item.courseName}
                     />
                 </figure>
                 <section className="p-4">
@@ -78,7 +78,7 @@ export const CourseCard: React.FC<CourseCardPropsType> = React.memo(
                         <h2
                             className={`text-title-color text-xl font-semibold`}
                         >
-                            {item.courseTitle}
+                            {item.courseName}
                         </h2>
                         <div className="relative h-16">
                             <div
@@ -91,7 +91,7 @@ export const CourseCard: React.FC<CourseCardPropsType> = React.memo(
                             >
                                 <div className="flex flex-col">
                                     <p className="text-text-color">
-                                        {item.teachBy}
+                                        {item.teacher}
                                     </p>
                                     <NumberFormat
                                         value={item.coursePrice}

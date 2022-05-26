@@ -4,8 +4,13 @@ import "aos/dist/aos.css";
 
 export const useAos = () => {
     useEffect(() => {
-        AOS.init({
-            duration: 1000,
-        });
+        let isMounted = true;
+        isMounted &&
+            AOS.init({
+                duration: 1000,
+            });
+        return () => {
+            isMounted = false;
+        };
     }, []);
 };

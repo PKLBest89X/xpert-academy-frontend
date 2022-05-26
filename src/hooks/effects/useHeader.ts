@@ -13,8 +13,14 @@ export const useHeader = () => {
     }, []);
 
     useEffect(() => {
-        if (offset > 65) setScrollActive(true);
-        return () => setScrollActive(false);
+        let isMounted = true;
+        if (isMounted) {
+            if (offset > 65) setScrollActive(true);
+        }
+        return () => {
+            isMounted = false;
+            setScrollActive(false);
+        };
     }, [offset]);
     return { scrollActive };
 };

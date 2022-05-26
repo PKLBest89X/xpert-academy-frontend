@@ -16,7 +16,7 @@ export const ProtectedRoute: FC<RoleType> = ({ allowedRole }) => {
     const location = useLocation();
     const { accessToken, roles } = useAppSelector((state) => state.auth);
 
-    return true ? (
+    return accessToken && roles.find((role) => allowedRole?.includes(role)) ? (
         <Outlet />
     ) : (
         <Navigate to="auth" state={{ from: location }} replace />

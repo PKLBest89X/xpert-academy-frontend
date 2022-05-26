@@ -101,7 +101,7 @@ const UserHeader: React.FC = () => {
                             className={`flex items-center transition duration-300 ease-in-out text-md gap-2 py-2 px-6 rounded-md hover:shadow-sm ${
                                 scrollActive || location.pathname !== "/"
                                     ? `text-body-color bg-primary-color hover:bg-primary-color-act hover:shadow-lg hover:border-primary-color-act`
-                                    : `bg-primary-color border-body-color text-body-color border-2 hover:bg-body-color hover:text-text-color`
+                                    : `bg-opacity-0 border-body-color text-body-color border-2 hover:bg-body-color hover:text-text-color`
                             }`}
                             state={{
                                 from: location,

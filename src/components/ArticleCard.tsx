@@ -93,10 +93,6 @@ export const ArticleCard: React.FC<ArticleDetailPropsType> = ({ item, rows }) =>
                                 </span>
                             </div>
                             <div className="inline">
-                                <Icon
-                                    icon={"eyes"}
-                                    className={`text-text-color`}
-                                />
                                 <NumberFormat
                                     value={item.articleViews}
                                     displayType={"text"}

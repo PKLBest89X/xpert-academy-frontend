@@ -1,12 +1,10 @@
 import { popupOpen, popupClose } from "slices/features/modalSlice";
 import { useAppDispatch } from "hooks/useRedux";
-import { useEffect } from "react";
-
-type ModalOpenType = string;
+import type { ModalPopupType } from 'types/actions.type';
 
 export const useModalOpen = () => {
     const dispatch = useAppDispatch();
-    const modalOpen = (open: ModalOpenType) => {
+    const modalOpen = (open: ModalPopupType) => {
         dispatch(popupOpen(open));
     };
 

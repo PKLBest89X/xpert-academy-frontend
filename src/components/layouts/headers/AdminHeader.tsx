@@ -7,18 +7,29 @@ import { AiOutlineMenu } from "react-icons/ai";
 // <----------------- import form components ---------------->
 import { Button } from "components/formComponents/Button";
 
-// <----------------- import hooks ------------------>>
+// <----------------- import hooks ------------------>
 import { useAppDispatch } from "hooks/useRedux";
 import { handleToggle } from "slices/features/toggleSlice";
 
-const AdminHeader: React.FC = () => {
+// <----------------- import types ------------------>
+import type { BackdropModalType } from 'types/actions.type'
+
+
+type AdminHeaderPropsType = {
+    modalActive: (open: BackdropModalType) => void
+}
+
+
+const AdminHeader: React.FC<AdminHeaderPropsType> = ({ modalActive }) => {
     // <---------------- defined initial variables -------------->
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const location = useLocation();
 
     // <----------------- functions ----------------------->
-    const onHandleToggle = () => dispatch(handleToggle());
+    const onHandleToggle = () => {
+        dispatch(handleToggle());
+    }
     const onLogout = () => {
         navigate("/", {
             replace: true,
@@ -27,6 +38,7 @@ const AdminHeader: React.FC = () => {
             },
         });
     };
+
 
     return (
         <header className="fixed top-0 left-0 w-full transition-all duration-300 ease-in-out z-30 px-4 shadow-md bg-container-primary-color">

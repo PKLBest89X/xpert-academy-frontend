@@ -3,7 +3,7 @@ import React, { FC } from "react";
 // <---------------------- import dashboard components ----------------------->
 import CardDashboardItem from "components/admin/dashboard/CardDashboardItem";
 import DonutChart from "components/admin/dashboard/DonutChart";
-import { Table } from "components/Table";
+import { Table } from "components/table";
 
 const Dashboard: FC = () => {
     return (

@@ -14,7 +14,7 @@ import { onAuthUser } from "slices/auth/authSlice";
 
 // <---------------- import types ---------------------->
 import type { LoginUserType, AuthInfoType } from "types/auth.type";
-import type { NotificationType } from "types/notification.type";
+import type { NotificationType } from "types/actions.type";
 import type { RoutesType } from "types/routes.type";
 
 // <----------------- creating hooks ---------------->
@@ -55,22 +55,22 @@ export const useLogin = <T extends LoginUserType>() => {
         {
             onSuccess: (getResponse) => {
                 dispatch(onAuthUser(getResponse.data));
-                // if (state === "admin") {
-                //     navigate("admin", {
-                //         replace: true,
-                //         state: {
-                //             from: location,
-                //         },
-                //     });
-                //     window.location.reload();
-                // } else {
-                //     navigate(state, {
-                //         replace: true,
-                //         state: {
-                //             from: location,
-                //         },
-                //     });
-                // }
+                if (state === "admin") {
+                    window.location.reload();
+                    navigate("admin", {
+                        replace: true,
+                        state: {
+                            from: location,
+                        },
+                    });
+                } else {
+                    navigate(state, {
+                        replace: true,
+                        state: {
+                            from: location,
+                        },
+                    });
+                }
             },
         }
     );

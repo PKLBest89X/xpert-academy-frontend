@@ -1,8 +1,5 @@
 import React, { FC, useState, useCallback } from "react";
 
-// <--------------- import formik ------------------->
-import { getIn, FieldProps } from "formik";
-
 // <------------- import component -------------->
 import { Icon } from "components/Icon";
 
@@ -24,15 +21,11 @@ type TextFieldPropsType = {
 };
 
 export const TextField: FC<
-    TextFieldPropsType &
-        React.InputHTMLAttributes<HTMLInputElement> &
-        FieldProps
+    TextFieldPropsType & React.InputHTMLAttributes<HTMLInputElement>
 > = React.memo((props) => {
     // <---------------- defined initial variables ---------------->
 
-    const isTouched = getIn(props.form.touched, props.field.name);
-    const messageError = getIn(props.form.errors, props.field.name);
-    const { leftIcon, rightIcon, field, form, ...rest } = props;
+    const { leftIcon, rightIcon, form, name, ...rest } = props;
     const [focused, setFocused] = useState<TextFieldFocusType>({
         name: "",
         isBlur: true,
@@ -57,7 +50,7 @@ export const TextField: FC<
                         <Icon
                             icon={leftIcon}
                             className={`transition duration-200 ease-in-out ${
-                                field.name === focused.name && !field.onBlur
+                                name === focused.name && !focused.isBlur
                                     ? `text-primary-color`
                                     : `text-text-color`
                             }`}
@@ -67,19 +60,18 @@ export const TextField: FC<
                 <input
                     type={
                         rightIcon &&
-                        field.name?.toLocaleLowerCase().includes("password") &&
+                        name?.toLocaleLowerCase().includes("password") &&
                         rightIconActive
                             ? `text`
                             : `password`
                     }
-                    className={`outline-none bg-container-primary-color border border-text-color text-text-color text-md rounded-lg block w-full ${
+                    className={`outline-none bg-container-primary-color border border-container-third-color text-text-color text-md rounded-lg block w-full ${
                         leftIcon && `pl-10`
                     } ${
                         rightIcon && `pr-10`
                     } p-3 transition duration-200 ease-in-out focus:border-primary-color focus:ring-2`}
                     onFocus={onHandleFocus}
                     autoComplete="off"
-                    {...field}
                     {...rest}
                 />
                 {rightIcon && (
@@ -108,9 +100,6 @@ export const TextField: FC<
                     </div>
                 )}
             </div>
-            {props.form.errors && props.field.name && isTouched && (
-                <p className="text-red-color text-sm">{messageError}</p>
-            )}
         </div>
     );
 });

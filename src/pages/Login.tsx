@@ -11,7 +11,8 @@ import { userLoginInitialState, userLoginValidationSchema } from "utils/input";
 
 // <----------------- import form components --------------->
 import { Button } from "components/formComponents/Button";
-import { TextField } from "components/formComponents/TextField";
+import { TextFieldFormik } from "components/formComponents/TextFieldFormik";
+import { Checkbox } from "components/formComponents/Checkbox";
 
 // <----------------- import types ------------------------>
 import type { RoutesType } from "types/routes.type";
@@ -68,7 +69,7 @@ const Login: FC = () => {
                             placeholder="email"
                             disabled={isSubmitting}
                             leftIcon={"circle-user"}
-                            component={TextField}
+                            component={TextFieldFormik}
                             value={values.email}
                             onBlur={handleBlur}
                             onChange={handleChange}
@@ -79,7 +80,7 @@ const Login: FC = () => {
                             disabled={isSubmitting}
                             leftIcon={"lock"}
                             rightIcon={"eye-slash"}
-                            component={TextField}
+                            component={TextFieldFormik}
                             value={values.password}
                             onBlur={handleBlur}
                             onChange={handleChange}
@@ -94,6 +95,8 @@ const Login: FC = () => {
                             type="submit"
                             disabled={isSubmitting}
                         />
+
+                        <Checkbox />
 
                         {loginError && (
                             <span className={`text-red-color`}>

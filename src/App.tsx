@@ -9,8 +9,9 @@ import UserLayout from "components/layouts/UserLayout";
 import AuthLayout from "components/layouts/AuthLayout";
 import AdminLayout from "components/layouts/AdminLayout";
 
-// <---------- import protect route ------------>
+// <---------- import protect route and persist route ------------>
 import { ProtectedRoute } from "routes/ProtectedRoute";
+import { PersistRoute } from "routes/PersistRoute";
 
 // <---------- import pages ------------>
 import Home from "pages";
@@ -48,7 +49,12 @@ import {
     faBasketShopping,
     faChartLine,
     faUsers,
-    faClock
+    faClock,
+    faSearch,
+    faChevronLeft,
+    faChevronRight,
+    faPlus,
+    faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -66,7 +72,12 @@ library.add(
     faBasketShopping,
     faChartLine,
     faUsers,
-    faClock
+    faClock,
+    faSearch,
+    faChevronLeft,
+    faChevronRight,
+    faPlus,
+    faXmark
 );
 
 const ThemeContext = createContext<{ sm: boolean; md: boolean; lg: boolean }>({
@@ -108,28 +119,33 @@ const App: FC = () => {
                 </Route>
 
                 {/* <-------------- admin layout -----------------> */}
-                <Route
-                    element={<ProtectedRoute allowedRole={["superadmin"]} />}
-                >
-                    <Route path="admin" element={<AdminLayout />}>
-                        <Route index element={<Dashboard />} />
-                        <Route
-                            path="manage-course"
-                            element={<AdminCourses />}
-                        />
-                        <Route
-                            path="manage-article"
-                            element={<AdminArticle />}
-                        />
-                        <Route
-                            path="manage-account"
-                            element={<AdminAccount />}
-                        />
-                        <Route
-                            path="course-payment"
-                            element={<CoursePayment />}
-                        />
-                        <Route path="report" element={<CourseReport />} />
+
+                <Route element={<PersistRoute />}>
+                    <Route
+                        element={
+                            <ProtectedRoute allowedRole={["superadmin"]} />
+                        }
+                    >
+                        <Route path="admin" element={<AdminLayout />}>
+                            <Route index element={<Dashboard />} />
+                            <Route
+                                path="manage-course"
+                                element={<AdminCourses />}
+                            />
+                            <Route
+                                path="manage-article"
+                                element={<AdminArticle />}
+                            />
+                            <Route
+                                path="manage-account"
+                                element={<AdminAccount />}
+                            />
+                            <Route
+                                path="course-payment"
+                                element={<CoursePayment />}
+                            />
+                            <Route path="report" element={<CourseReport />} />
+                        </Route>
                     </Route>
                 </Route>
 

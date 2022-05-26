@@ -11,7 +11,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            refetchOnMount: true,
+            refetchOnMount: false,
             retry: false,
             refetchOnReconnect: false,
             refetchOnWindowFocus: false,
@@ -20,7 +20,7 @@ const queryClient = new QueryClient({
 });
 
 ReactDOM.render(
-    <React.StrictMode>
+    <React.Fragment>
         <QueryClientProvider client={queryClient}>
             <Provider store={store}>
                 <Router>
@@ -28,7 +28,7 @@ ReactDOM.render(
                 </Router>
             </Provider>
         </QueryClientProvider>
-    </React.StrictMode>,
+    </React.Fragment>,
     document.getElementById("root")
 );
 

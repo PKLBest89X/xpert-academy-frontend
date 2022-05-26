@@ -8,8 +8,11 @@ import AdminNavigation from "./navigations/AdminNavigation";
 import Backdrop from "components/Backdrop";
 
 // <----------------- import redux functions and hooks ------------------------->
+import { useFade } from "hooks/effects/useFade";
 import { useAppSelector, useAppDispatch } from "hooks/useRedux";
 import { handleToggle } from "slices/features/toggleSlice";
+
+// <----------------------- import types ------------------------->
 
 const AdminLayout: FC = () => {
     // <-------------- defined initial variables --------------->
@@ -17,15 +20,28 @@ const AdminLayout: FC = () => {
     const { sm } = useContext(ThemeContext);
     const dispatch = useAppDispatch();
 
+    // <------------------ defined hooks and fetching data ----------------------->>
+    const { modalOpen, animationEnd, visible, setAnimateActive } = useFade();
+
     // <----------------- functions -------------------------->
     const handleClick = useCallback(() => dispatch(handleToggle()), [dispatch]);
     const handleClickNavLink = useCallback(() => {
-        if (sm && smDown) dispatch(handleToggle());
+        if (sm && smDown) {
+            setAnimateActive("inactive");
+            dispatch(handleToggle());
+        }
     }, [dispatch, sm, smDown]);
+
     return (
         <div>
-            <AdminHeader />
-            <Backdrop active={smDown && sm} handleClick={handleClick} />
+            <AdminHeader modalActive={() => modalOpen("backdropActive")} />
+            {(visible && smDown && sm) && (
+                <Backdrop
+                    visibleStatus="inactive"
+                    handleClick={handleClick}
+                    animationEnd={animationEnd}
+                />
+            )}
             <div className={`flex pt-[64px]`}>
                 <AdminNavigation
                     screen={{

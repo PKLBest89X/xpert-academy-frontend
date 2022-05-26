@@ -14,10 +14,16 @@ export const useResponsiveScreen = () => {
     const { matches: md } = useMediaQuery(screenBreakpoints.md);
     const { matches: lg } = useMediaQuery(screenBreakpoints.lg);
     useEffect(() => {
-        if (sm || md) {
-            dispatch(onSmUpClose());
-            dispatch(onSmDownClose());
-        } else if (lg) dispatch(onSmUpOpen());
+        let isMounted = true;
+        if (isMounted) {
+            if (sm || md) {
+                dispatch(onSmUpClose());
+                dispatch(onSmDownClose());
+            } else if (lg) dispatch(onSmUpOpen());
+        }
+        return () => {
+            isMounted = false;
+        };
     }, [dispatch, sm, md, lg]);
     return { sm, md, lg };
 };

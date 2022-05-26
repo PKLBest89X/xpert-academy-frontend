@@ -6,6 +6,10 @@ type PropsType = {
 
 export const useTitle = ({ title }: PropsType) => {
     useEffect(() => {
-        document.title = title;
+        let isMounted = true;
+        if (isMounted) document.title = title; 
+        return () => {
+            isMounted = false;
+        }
     }, [title]);
 };
